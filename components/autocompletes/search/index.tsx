@@ -31,6 +31,7 @@ const TextSearchField = (props: Props) => {
     if (router.query[queryString]) {
       setText(`${router.query[queryString]}`)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.query[queryString], isDirtyRef.current])
 
   React.useEffect(() => {
