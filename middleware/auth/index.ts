@@ -14,20 +14,20 @@ export async function authMiddleware({ req, res }: Props) {
 
   if (!refreshTokenString && req.url !== '/login') {
     clearCookies(res)
-    return NextResponse.redirect('/login')
+    return NextResponse.rewrite('/login')
   }
 
   const refreshToken = decodeToken<IRefreshToken>(refreshTokenString)
 
   const isRefreshTokenExp = refreshToken ? isTokenExpired(refreshToken) : true
 
-  // if (req.url === '/login' && !isRefreshTokenExp) {
-  //   return NextResponse.redirect('/')
-  // }
+  if (req.url === '/login' && !isRefreshTokenExp) {
+    return NextResponse.rewrite('/')
+  }
 
   if (req.url !== '/login' && isRefreshTokenExp) {
     clearCookies(res)
-    return NextResponse.redirect('/login')
+    return NextResponse.rewrite('/login')
   }
 
   return null
