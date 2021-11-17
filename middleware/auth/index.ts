@@ -11,24 +11,23 @@ interface Props {
 
 export async function authMiddleware({ req, res }: Props) {
   const refreshTokenString = req.cookies[REFRESH_TOKEN]
-  let start = Date.now()
 
   if (!refreshTokenString && req.url !== '/login') {
     clearCookies(res)
-    return NextResponse.redirect(`/login?l=${Date.now() - start}`)
+    return NextResponse.redirect(`/login`)
   }
 
   const refreshToken = decodeToken<IRefreshToken>(refreshTokenString)
 
   const isRefreshTokenExp = refreshToken ? isTokenExpired(refreshToken) : true
 
-  if (req.url === '/login' && !isRefreshTokenExp) {
-    return NextResponse.redirect('/')
-  }
+  // if (req.url === '/login' && !isRefreshTokenExp) {
+  //   return NextResponse.redirect('/')
+  // }
 
   if (req.url !== '/login' && isRefreshTokenExp) {
     clearCookies(res)
-    return NextResponse.redirect(`/login?l=${Date.now() - start}`)
+    return NextResponse.redirect(`/login`)
   }
 
   return null

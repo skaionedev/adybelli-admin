@@ -1,7 +1,7 @@
 import FormCheckbox from '@/components/form/checkbox'
 import FormTextField from '@/components/form/textfield'
 import { useAuthContext } from '@/providers/auth'
-import { yupResolver } from '@hookform/resolvers/yup'
+import { yupResolver } from '@hookform/resolvers/yup/dist/yup'
 import { Button, CardContent, CircularProgress, Stack } from '@mui/material'
 import React from 'react'
 import { useForm } from 'react-hook-form'
@@ -33,7 +33,12 @@ const Login = () => {
             <Stack spacing={2}>
               <FormTextField control={control} name="email" label="Логин" />
 
-              <FormTextField control={control} type="password" name="password" label="Пароль" />
+              <FormTextField
+                control={control}
+                type="password"
+                name="password"
+                label="Пароль"
+              />
 
               <FormCheckbox control={control} label="Запомнить меня" name="remember" />
 

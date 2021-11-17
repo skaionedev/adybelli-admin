@@ -5,7 +5,7 @@ import { useOrdersOneQuery } from '@/hooks/queries/orders/useOrdersOneQuery'
 import { useStatusesAllQuery } from '@/hooks/queries/statuses/useStatusesAllQuery'
 import { getAxios } from '@/lib/axios'
 import { filterOutFalsyItems } from '@/lib/utils'
-import { yupResolver } from '@hookform/resolvers/yup'
+import { yupResolver } from '@hookform/resolvers/yup/dist/yup'
 import {
   Button,
   Chip,
