@@ -53,8 +53,9 @@ const AuthProvider: React.FC = ({ children }) => {
 
   function logout() {
     clearTokens()
+    setUser(null)
     setIsAuthenticated(false)
-    router.replace('/login')
+    router.push('/login')
   }
 
   const memoedValue = React.useMemo(

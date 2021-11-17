@@ -14,8 +14,8 @@ export async function authMiddleware({ req, res }: Props) {
   const refreshTokenString = req.cookies[REFRESH_TOKEN]
 
   if (!refreshTokenString && req.url !== '/login') {
-    // clearCookies(res)
-    return NextResponse.redirect(`/login`)
+    clearCookies(res)
+    return NextResponse.redirect('/login')
   }
 
   const refreshToken = decodeToken<IRefreshToken>(refreshTokenString)
