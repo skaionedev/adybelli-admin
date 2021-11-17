@@ -64,7 +64,7 @@ const OrderDetailTable = () => {
                 <TableCell align="left">{row.count}</TableCell>
                 <TableCell align="left">{(row.price * row.count).toFixed(2)}</TableCell>
                 <TableCell align="left">
-                  <OrderDetailProductStatus product={row} />
+                  <OrderDetailProductStatus product={row} />w
                 </TableCell>
               </TableRow>
             ))}
