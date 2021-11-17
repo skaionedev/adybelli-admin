@@ -1,6 +1,7 @@
 import { ACCESS_TOKEN, REFRESH_TOKEN, REMEMBER_ME } from '@/lib/constants'
 import { decodeToken, isTokenExpired } from '@/services/auth'
 import { IRefreshToken } from '@/services/auth/types'
+import { NextURL } from 'next/dist/server/web/next-url'
 import type { NextRequest } from 'next/server'
 import { NextResponse } from 'next/server'
 
@@ -14,7 +15,7 @@ export async function authMiddleware({ req, res }: Props) {
 
   if (!refreshTokenString && req.url !== '/login') {
     clearCookies(res)
-    return NextResponse.redirect(`/login`)
+    return NextResponse.redirect(`/login`, 307)
   }
 
   const refreshToken = decodeToken<IRefreshToken>(refreshTokenString)
@@ -27,7 +28,7 @@ export async function authMiddleware({ req, res }: Props) {
 
   if (req.url !== '/login' && isRefreshTokenExp) {
     clearCookies(res)
-    return NextResponse.redirect(`/login`)
+    return NextResponse.redirect(`/login`, 307)
   }
 
   return null
