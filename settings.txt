@@ -1,0 +1,12 @@
+server:
+	ssh root@cdn.adybelli.com
+	Baye8678!
+
+gitlab:
+	adybelli-commerce
+	adybelli12345
+
+db:
+	user: sa
+	database: adybelli
+	password: BAYe588007!
