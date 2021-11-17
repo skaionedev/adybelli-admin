@@ -13,7 +13,7 @@ export const getAxios = (): AxiosInstance => {
     const cookies = parseCookies(null)
 
     const accessToken = cookies[ACCESS_TOKEN]
-    if (accessToken) config.headers.Authorization = `Bearer ${accessToken}`
+    if (accessToken) config!.headers!.Authorization = `Bearer ${accessToken}`
     // const locale = cookies.NEXT_LOCALE
     // config.params = { lang: locale ? locale : 'ru', ...config.params }
 

@@ -54,7 +54,7 @@ const FormTextField = (props: InputProps) => {
 
   const [isPasswordShown, setIsPasswordShown] = React.useState(false)
 
-  const handleMouseDownPassword = event => {
+  const handleMouseDownPassword = (event: any) => {
     event.preventDefault()
   }
   const handlePasswordToggle = () => {

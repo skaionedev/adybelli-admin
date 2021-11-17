@@ -10,3 +10,7 @@ db:
 	user: sa
 	database: adybelli
 	password: BAYe588007!
+
+
+server passphrase
+	gitlab@123
