@@ -11,6 +11,7 @@ interface Props {
 
 export async function authMiddleware({ req, res }: Props) {
   const refreshTokenString = req.cookies[REFRESH_TOKEN]
+
   if (!refreshTokenString && req.url !== '/login') {
     clearCookies(res)
     return NextResponse.redirect('/login')
@@ -20,9 +21,9 @@ export async function authMiddleware({ req, res }: Props) {
 
   const isRefreshTokenExp = refreshToken ? isTokenExpired(refreshToken) : true
 
-  if (req.url === '/login' && !isRefreshTokenExp) {
-    return NextResponse.redirect('/')
-  }
+  // if (req.url === '/login' && !isRefreshTokenExp) {
+  //   return NextResponse.redirect('/')
+  // }
 
   if (req.url !== '/login' && isRefreshTokenExp) {
     clearCookies(res)
