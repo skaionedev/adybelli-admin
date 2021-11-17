@@ -1,5 +1,11 @@
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/lib/constants'
-import { clearTokens, isTokenValid, setTokens, getTokens, decodeToken } from '@/services/auth'
+import {
+  clearTokens,
+  isTokenValid,
+  setTokens,
+  getTokens,
+  decodeToken
+} from '@/services/auth'
 import { IAccessToken, IGetTokensProps } from '@/services/auth/types'
 import { useRouter } from 'next/router'
 import { parseCookies } from 'nookies'
@@ -59,6 +65,7 @@ const AuthProvider: React.FC = ({ children }) => {
       login,
       logout
     }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [loading, user, isAuthenticated]
   )
 
