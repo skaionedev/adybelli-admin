@@ -16,16 +16,18 @@ import { IAuthContext } from './types'
 const AuthContext = React.createContext<IAuthContext>({} as IAuthContext)
 
 const AuthProvider: React.FC = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = React.useState(() => {
-    const cookies = parseCookies({})
-    const token = cookies[REFRESH_TOKEN]
-    return Boolean(token)
-  })
+  const [isAuthenticated, setIsAuthenticated] = React.useState(false)
 
   const [user, setUser] = React.useState(initUser)
 
   const [loading, setLoading] = React.useState<boolean>(false)
   const router = useRouter()
+
+  React.useEffect(() => {
+    const cookies = parseCookies({})
+    const token = cookies[REFRESH_TOKEN]
+    setIsAuthenticated(Boolean(token))
+  }, [])
 
   function initUser() {
     const cookies = parseCookies({})
@@ -41,7 +43,9 @@ const AuthProvider: React.FC = ({ children }) => {
       if (!isTokenValid(accessToken)) throw new Error('invalid Token')
       setTokens({ refreshToken, accessToken })
       setUser(initUser)
+      setIsAuthenticated(true)
       setLoading(false)
+
       router.replace('/')
     } catch (error: any) {
       setLoading(false)
@@ -55,7 +59,7 @@ const AuthProvider: React.FC = ({ children }) => {
     clearTokens()
     setUser(null)
     setIsAuthenticated(false)
-    router.push('/login')
+    router.replace('/login')
   }
 
   const memoedValue = React.useMemo(

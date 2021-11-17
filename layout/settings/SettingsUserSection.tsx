@@ -51,7 +51,9 @@ const SettingsUserSection = ({ closeDrawer }: Props) => {
                 <FaUserCircle size={22} />
               </Avatar>
             </ListItemAvatar>
-            <ListItemText primary={<Typography variant="body2">{user && user.email}</Typography>} />
+            <ListItemText
+              primary={<Typography variant="body2">{user && user.email}</Typography>}
+            />
           </ListItem>
         </>
       )}
