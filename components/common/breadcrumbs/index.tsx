@@ -7,7 +7,7 @@ import { StyledBreadcrumbs, StyledLink, StyledWrapper } from './styles'
 interface Props {
   back?: string
   backLink?: string
-  current?: string
+  current?: string | number
 }
 
 const AppBreadcrumbs: React.FC<Props> = props => {

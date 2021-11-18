@@ -5,6 +5,7 @@ export const StyledPaper = styled(Paper)`
   display: flex;
   height: 100vh;
   width: 100%;
+  color: ${props => props.theme.palette.primary.main};
   background-color: ${({ theme }) => theme.palette.background.default};
 `
 

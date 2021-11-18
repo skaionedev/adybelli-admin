@@ -13,13 +13,10 @@ const OrderDetailContainer = () => {
       <AppBreadcrumbs current={data?.order_id && `заказ №${data?.order_id}`}>
         <OrderDetailOrderStatus />
       </AppBreadcrumbs>
-      {/* <StyledWrapper> */}
       <Card variant="outlined">
         <OrderDetailTableHeader />
         <OrderDetailTable />
       </Card>
-      {/* <OrderDetailInfo /> */}
-      {/* </StyledWrapper> */}
     </>
   )
 }
