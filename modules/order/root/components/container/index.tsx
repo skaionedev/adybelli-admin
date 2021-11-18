@@ -7,7 +7,6 @@ import { useOrdersAllQuery } from '@/hooks/queries/orders/useOrdersAllQuery'
 
 const OrderRootContainer = () => {
   const { data } = useOrdersAllQuery()
-  console.log({ pageData: data })
 
   const pages = data?.count ? Math.ceil(data?.count / 10) : 1
 

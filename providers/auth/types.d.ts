@@ -1,9 +1,9 @@
-import type { IAccessToken } from '@/services/auth/types'
+import type { IAccessToken, IGetTokensProps } from '@/services/auth/types'
 
 export interface IAuthContext {
   isAuthenticated: boolean
   user?: IAccessToken | null
   loading: boolean
-  login: (values: ILoginProps) => void
+  login: (values: IGetTokensProps) => Promise<void>
   logout: () => void
 }

@@ -1,10 +1,10 @@
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/lib/constants'
 import {
   clearTokens,
-  isTokenValid,
-  setTokens,
+  decodeToken,
   getTokens,
-  decodeToken
+  isTokenValid,
+  setTokens
 } from '@/services/auth'
 import { IAccessToken, IGetTokensProps } from '@/services/auth/types'
 import { useRouter } from 'next/router'
@@ -42,11 +42,12 @@ const AuthProvider: React.FC = ({ children }) => {
       const { accessToken, refreshToken } = await getTokens(values)
       if (!isTokenValid(accessToken)) throw new Error('invalid Token')
       setTokens({ refreshToken, accessToken })
-      setUser(initUser)
-      setIsAuthenticated(true)
       setLoading(false)
+      window.location.href = '/'
+      // setUser(initUser)
+      // setIsAuthenticated(true)
 
-      router.replace('/')
+      // Router.replace('/')
     } catch (error: any) {
       setLoading(false)
       toast.error('Что-то пошло не так', {

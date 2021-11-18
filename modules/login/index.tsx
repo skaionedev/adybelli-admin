@@ -3,6 +3,7 @@ import FormTextField from '@/components/form/textfield'
 import { useAuthContext } from '@/providers/auth'
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup'
 import { Button, CardContent, CircularProgress, Stack } from '@mui/material'
+import { useRouter } from 'next/router'
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { schema } from './schema'
@@ -10,6 +11,7 @@ import { StyledCard, StyledTitle, StyledWrapper } from './styles'
 
 const Login = () => {
   const { login, loading } = useAuthContext()
+  const router = useRouter()
 
   const defaultValues = {
     email: '',
@@ -17,7 +19,7 @@ const Login = () => {
     remember: false
   }
 
-  const { control, handleSubmit, formState } = useForm<typeof defaultValues>({
+  const { control, handleSubmit } = useForm<typeof defaultValues>({
     defaultValues,
     shouldFocusError: true,
     resolver: yupResolver(schema)

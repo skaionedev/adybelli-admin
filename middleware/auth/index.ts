@@ -13,6 +13,7 @@ interface Props {
 export async function authMiddleware({ req, res }: Props) {
   const refreshTokenString = req.cookies[REFRESH_TOKEN]
 
+  // NO TOKEN IN COOKIE AND ROUTE IS NOT EQAUL LOGIN
   if (!refreshTokenString && req.url !== '/login') {
     clearCookies(res)
     return NextResponse.redirect('/login')
@@ -22,13 +23,15 @@ export async function authMiddleware({ req, res }: Props) {
 
   const isRefreshTokenExp = refreshToken ? isTokenExpired(refreshToken) : true
 
+  // RESTRICT ACCESS TO LOGIN PAGE FOR AUTHENTICATED USERS
   if (req.url === '/login' && !isRefreshTokenExp) {
-    return NextResponse.redirect('/')
+    return NextResponse.redirect('/users')
   }
 
+  // REDIRECT TO LOGIN PAGE IF TOKEN IS EXPIRED
   if (req.url !== '/login' && isRefreshTokenExp) {
     clearCookies(res)
-    return NextResponse.redirect(`/login`)
+    return NextResponse.redirect('/login')
   }
 
   return null

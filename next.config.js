@@ -14,9 +14,7 @@ const nextConfig = {
   // swcMinify: true,
   compress: false,
   images: {
-    domains: isDev
-      ? ['192.168.30.210', '192.168.50.106', 'market.akat.com.tm', '']
-      : ['market.akat.com.tm', '']
+    domains: isDev ? ['192.168.30.210', '192.168.50.106', ''] : ['']
   }
 }
 
