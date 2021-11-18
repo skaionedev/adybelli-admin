@@ -65,3 +65,11 @@ export const formatDateDetail = (dateString: string) => {
 
   return `${hoursToShow}:${minutesToShow} - ${dayToShow}.${monthToSHow}.${year}`
 }
+
+export type TPaymetns = 'Наличные' | 'Терминал' | 'Онлайн'
+
+export function convertPaymentTypesToString(type: number): TPaymetns {
+  if (type === 3) return 'Онлайн'
+  else if (type === 2) return 'Терминал'
+  else return 'Наличные'
+}

@@ -66,16 +66,18 @@ const OrderDetailOrderStatus = () => {
 
   return (
     <>
-      {/* <Chip
-        icon={<MdModeEdit style={{ paddingLeft: 4 }} size={20} />}
-        label={data?.statusDetail?.name}
-        onClick={openModal}
-      /> */}
-      <Tooltip title="Изменит статус">
+      {data?.status && (
+        <Chip
+          icon={<MdModeEdit style={{ paddingLeft: 4 }} size={20} />}
+          label={data?.statusDetail?.name}
+          onClick={openModal}
+        />
+      )}
+      {/* <Tooltip title="Изменит статус">
         <IconButton size="small" onClick={openModal}>
           <MdModeEdit size={20} />
         </IconButton>
-      </Tooltip>
+      </Tooltip> */}
 
       <AppModal
         title="Изменить статус заказа"

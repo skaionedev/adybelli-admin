@@ -17,4 +17,13 @@ export const ImageWrapper = styled('div')`
   overflow: hidden;
   height: 50px;
   width: 50px;
+  display: grid;
+  place-items: center;
+`
+
+export const StyledLink = styled('a')`
+  text-decoration: none;
+  color: inherit;
+  display: grid;
+  place-items: center;
 `

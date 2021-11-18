@@ -1,4 +1,4 @@
-import { TStatusCode } from '../statuses/types'
+import { IStatus } from '../statuses/types'
 
 export interface IOrder<T> {
   address: string
@@ -17,7 +17,7 @@ export interface IOrder<T> {
   updatedAt: string
   user: IOrderUser
   user_id: string
-  statusDetail: IStatusDetail
+  statusDetail: IStatus
 }
 
 export interface IOrderProductShort {
@@ -44,7 +44,7 @@ export interface IOrderProductFull {
   prod_id: string
   size: string
   status: TStatusCode
-  statusDetail: { code: TStatusCode; id: number; name: string }
+  statusDetail: IStatus
   tm_id: number
   usd_price: number
 }
