@@ -1,7 +1,7 @@
 import ListTile from '@/components/common/list-tile'
 import AppModal from '@/components/common/modal'
 import { useOrdersOneQuery } from '@/hooks/queries/orders/useOrdersOneQuery'
-import { convertPaymentTypesToString, formatDateDetail } from '@/lib/utils'
+import { convertPaymentTypes, formatDateDetail } from '@/lib/utils'
 import { IconButton, Stack, Tooltip } from '@mui/material'
 import React from 'react'
 import { BsCashStack, BsFillCalendarEventFill } from 'react-icons/bs'
@@ -40,7 +40,7 @@ const OrderDetailOrderInfo = () => {
             <ListTile
               bold
               label="Тип оплаты"
-              value={convertPaymentTypesToString(data?.payment_method)}
+              value={convertPaymentTypes(data?.payment_method).name}
               // icon={<MdContactless size={22} />}
             />
           </Stack>

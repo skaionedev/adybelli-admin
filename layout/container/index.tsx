@@ -1,3 +1,5 @@
+import useOrderNotificationHook from '@/hooks/notifications/order'
+import { useOrdersStatsQuery } from '@/hooks/queries/orders/useOrdersStatsQuery'
 import { getResolution } from '@/lib/utils'
 
 import Head from 'next/head'
@@ -9,7 +11,8 @@ import { StyledBox, StyledPaper } from './styles'
 
 const LayoutContainer: React.FC = ({ children }) => {
   const isMobile = getResolution() === 'MOBILE'
-
+  const { data } = useOrdersStatsQuery()
+  const { counts, favIconLink } = useOrderNotificationHook()
   const [isDrawerOpen, setIsDrawerOpen] = React.useState(true)
 
   React.useEffect(() => {
@@ -30,9 +33,12 @@ const LayoutContainer: React.FC = ({ children }) => {
   return (
     <>
       <Head>
-        {/* <link rel="icon" href={favIconLink} key="favicon" id="favicon" /> */}
-        <title key="head-title">Dashboard</title>
+        <link rel="icon" href={favIconLink} key="favicon" id="favicon" />
+        <title key="head-title">
+          {counts > 0 ? `(${counts}) Dashboard` : 'Dashboard'}
+        </title>
       </Head>
+
       <StyledPaper>
         <AppHeader toggle={toggleDrawer} />
         <AppSidebar isOpen={isDrawerOpen} setIsOpen={setIsDrawerOpen} />

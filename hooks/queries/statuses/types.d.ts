@@ -7,7 +7,7 @@ export interface IStatus {
 export type TStatusCode =
   | 'accepted'
   | 'rejected'
-  | 'pending '
+  | 'pending'
   | 'stock_tr'
   | 'stock_tm'
   | 'in_truck'

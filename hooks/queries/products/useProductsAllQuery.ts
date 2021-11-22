@@ -3,28 +3,29 @@ import { filterOutFalsyItems } from '@/lib/utils'
 import { useAuthContext } from '@/providers/auth'
 import { useRouter } from 'next/router'
 import { useQuery, UseQueryResult } from 'react-query'
-import type { IBox } from './types'
+import type { IProduct } from './types'
 
 interface Response {
   count: number
-  rows: IBox[]
+  rows: IProduct[]
 }
 type QueryType = () => UseQueryResult<Response, unknown>
 
-export const useBoxesAllQuery: QueryType = () => {
+export const useProductsAllQuery: QueryType = () => {
   const { isAuthenticated, user } = useAuthContext()
   const { locale, query } = useRouter()
 
   const params = filterOutFalsyItems({
     limit: 10,
     page: query.page ?? 1,
-    search: query.search ?? ''
+    search: query.search ?? '',
+    status: query.status ?? null
   })
 
   return useQuery(
-    ['boxes-all', params, isAuthenticated, user],
+    ['products-all', params, isAuthenticated, user],
     async ({ signal }) => {
-      const { data } = await axiosInstance.get('/admin/boxes', { params, signal })
+      const { data } = await axiosInstance.get('/admin/products', { params, signal })
       return data
     },
     {

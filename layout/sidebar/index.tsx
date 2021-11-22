@@ -1,3 +1,4 @@
+import { useOrdersStatsQuery } from '@/hooks/queries/orders/useOrdersStatsQuery'
 import { useAuthContext } from '@/providers/auth'
 import {
   Badge,
@@ -28,12 +29,13 @@ const container =
 
 const AppSidebar: React.FC<Props> = ({ isOpen, setIsOpen }) => {
   // const { user } = useAuthContext()
+  const { data: counts } = useOrdersStatsQuery()
 
   const routes = getRoutes()
 
   const tabletAndMobile = useMediaQuery('(max-width:769px)')
 
-  const orderCount = 0
+  const orderCount = counts ? counts.pending.ordersCount : 0
 
   const router = useRouter()
 

@@ -1,4 +1,4 @@
-import { IStatus } from '../statuses/types'
+import { IStatus, TStatusCode } from '../statuses/types'
 
 export interface IOrder<T> {
   address: string
@@ -55,4 +55,15 @@ interface IOrderUser {
   name: string
   phone: string
   user_id: string
+}
+
+export type TOrderStats = {
+  [key in TStatusCode]: IOrderStatsItem
+} & { ordersCount: number; ordersTotalPrice: number; statuses: IOrderStatsItem[] }
+
+export interface IOrderStatsItem {
+  code: TStatusCode
+  name: string
+  ordersCount: number
+  ordersTotalPrice: number
 }

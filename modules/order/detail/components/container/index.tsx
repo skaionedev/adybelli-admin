@@ -11,7 +11,7 @@ const OrderDetailContainer = () => {
   return (
     <>
       <AppBreadcrumbs current={data?.order_id && `заказ №${data?.order_id}`}>
-        <OrderDetailOrderStatus />
+        {data?.order_id && <OrderDetailOrderStatus />}
       </AppBreadcrumbs>
       <Card variant="outlined">
         <OrderDetailTableHeader />

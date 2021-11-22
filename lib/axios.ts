@@ -1,56 +1,88 @@
-import axios, { AxiosInstance } from 'axios'
+import axios from 'axios'
 import { parseCookies } from 'nookies'
-import { clearTokens, refreshTokens, setTokens } from '../services/auth'
-import { API_URL, ACCESS_TOKEN } from './constants'
+import { clearTokens, setTokens } from '../services/auth'
+import { API_URL, ACCESS_TOKEN, REFRESH_TOKEN } from './constants'
+import Router from 'next/router'
+import { IStringTokens } from '@/services/auth/types'
 
 const axiosInstance = axios.create({
   baseURL: API_URL,
-  headers: { 'Content-Type': 'application/json' }
+  headers: {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${getTokens()[ACCESS_TOKEN]}`
+  }
 })
 
-export const getAxios = (): AxiosInstance => {
-  axiosInstance.interceptors.request.use(config => {
-    const cookies = parseCookies(null)
+let isRefreshing = false
+let requests: any[] = []
 
-    const accessToken = cookies[ACCESS_TOKEN]
-    if (accessToken) config!.headers!.Authorization = `Bearer ${accessToken}`
-    // const locale = cookies.NEXT_LOCALE
-    // config.params = { lang: locale ? locale : 'ru', ...config.params }
+axiosInstance.interceptors.response.use(
+  response => {
+    return response
+  },
+  async function (error) {
+    const { response, config } = error
 
-    return config
-  })
+    const status = response ? response.status : null
 
-  axiosInstance.interceptors.response.use(
-    response => {
-      return response
-    },
-    async function (error) {
-      const originalRequest = error.response.config
-      const status = error.response ? error.response.status : null
+    const isAuthRequest = response.request.responseURL.includes('/login')
 
-      if (status !== 401) {
-        return Promise.reject(error)
-      }
+    if (status === 401 && !isAuthRequest) {
+      if (!isRefreshing) {
+        isRefreshing = true
 
-      const data = await refreshTokens()
-
-      if (!data?.accessToken) {
-        clearTokens()
-        if (typeof window !== 'undefined') {
-          return (window.location.href = '/login')
-        }
-        return Promise.reject(error)
-      }
-
-      setTokens({ accessToken: data.accessToken, refreshToken: data.refreshToken })
-
-      if (status === 401 && !originalRequest._retry) {
-        originalRequest._retry = true
-        originalRequest.headers['Authorization'] = `Bearer ${data.accessToken}`
-        return axios(originalRequest)
+        return refreshToken()
+          .then(data => {
+            setTokens({
+              accessToken: data.accessToken,
+              refreshToken: data.refreshToken
+            })
+            // @ts-ignore: Unreachable code error
+            axiosInstance.defaults.headers['Authorization'] = `Bearer ${data.accessToken}`
+            config.headers['Authorization'] = `Bearer ${data.accessToken}`
+            requests.forEach(cb => cb(data.accessToken))
+            requests = []
+            return axiosInstance(config)
+          })
+          .catch(() => {
+            requests = []
+            clearTokens()
+            // @ts-ignore: Unreachable code error
+            axiosInstance.defaults.headers['Authorization'] = ''
+            if (typeof window !== 'undefined') {
+              Router.replace('/login')
+            }
+          })
+          .finally(() => {
+            isRefreshing = false
+          })
+      } else {
+        return new Promise(resolve => {
+          requests.push((token: string) => {
+            config.headers['Authorization'] = `Bearer ${token}`
+            resolve(axiosInstance(config))
+          })
+        })
       }
     }
-  )
 
-  return axiosInstance
+    return Promise.reject(error)
+  }
+)
+
+export default axiosInstance
+
+function refreshToken() {
+  const refreshToken = getTokens()[REFRESH_TOKEN]
+  return axios
+    .get<IStringTokens>(`${API_URL}/auth/refresh`, {
+      headers: { Authorization: `Bearer ${refreshToken}` }
+    })
+    .then(res => {
+      return res.data
+    })
+}
+
+function getTokens() {
+  return process.browser ? parseCookies(null) : {}
 }

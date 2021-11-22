@@ -1,7 +1,7 @@
 import TablePlaceholder from '@/components/common/table/placeholder'
 import { TableHeaderCell } from '@/components/styled/TableHeaderCell'
 import { useOrdersAllQuery } from '@/hooks/queries/orders/useOrdersAllQuery'
-import { convertPaymentTypesToString, formatDateDetail } from '@/lib/utils'
+import { convertPaymentTypes, formatDateDetail, getStatusColor } from '@/lib/utils'
 import {
   Chip,
   Table,
@@ -52,11 +52,14 @@ const OrderRootTable = () => {
                 <TableCell align="left">{row.user.phone}</TableCell>
                 <TableCell align="left">{formatDateDetail(row.createdAt)}</TableCell>
                 <TableCell align="left">
-                  <Chip label={convertPaymentTypesToString(row.payment_method)} />
+                  <Chip label={convertPaymentTypes(row.payment_method).name} />
                 </TableCell>
                 <TableCell align="left">{row.total}</TableCell>
                 <TableCell align="left">
-                  <Chip label={row.statusDetail.name} />
+                  <Chip
+                    label={row.statusDetail.name}
+                    color={getStatusColor(row.statusDetail).color}
+                  />
                 </TableCell>
               </TableRow>
             ))}

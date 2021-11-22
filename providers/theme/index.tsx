@@ -7,7 +7,7 @@ import React from 'react'
 import { AppThemeContextType, ThemeType } from './types'
 import { getTheme } from './getTheme'
 import { ConfirmProvider } from 'material-ui-confirm'
-import { APP_THEME } from '@/lib/constants'
+import { APP_THEME, SECURE_COOKIE } from '@/lib/constants'
 import { getResolution } from '@/lib/utils'
 
 const ThemeContext = React.createContext<AppThemeContextType>({
@@ -31,7 +31,7 @@ const AppThemeProvider: React.FC = ({ children }) => {
     setCookie({}, APP_THEME, themeMode, {
       path: '/',
       maxAge: 10 * 365 * 24 * 60 * 60,
-      secure: process.env.NODE_ENV !== 'development'
+      secure: SECURE_COOKIE
     })
   }, [])
 
@@ -40,7 +40,7 @@ const AppThemeProvider: React.FC = ({ children }) => {
     setThemeMode(mode)
     setCookie({}, APP_THEME, mode, {
       path: '/',
-      secure: process.env.NODE_ENV !== 'development'
+      secure: SECURE_COOKIE
     })
   }
 

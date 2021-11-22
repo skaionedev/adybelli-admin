@@ -4,7 +4,7 @@ import { IOrderProductFull } from '@/hooks/queries/orders/types'
 import { useOrdersOneQuery } from '@/hooks/queries/orders/useOrdersOneQuery'
 import { useStatusesAllQuery } from '@/hooks/queries/statuses/useStatusesAllQuery'
 import { getAxios } from '@/lib/axios'
-import { filterOutFalsyItems } from '@/lib/utils'
+import { filterOutFalsyItems, getStatusColor } from '@/lib/utils'
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup'
 import { Button, Chip, CircularProgress, MenuItem, Stack } from '@mui/material'
 import React from 'react'
@@ -65,6 +65,7 @@ const OrderDetailProductStatus = ({ product }: Props) => {
       <Chip
         icon={<MdModeEdit style={{ paddingLeft: 4 }} size={20} />}
         label={product.statusDetail?.name}
+        color={getStatusColor(product.statusDetail).color}
         onClick={openModal}
       />
 

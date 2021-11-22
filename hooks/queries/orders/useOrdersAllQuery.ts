@@ -1,10 +1,9 @@
-import { getAxios } from '@/lib/axios'
+import axiosInstance from '@/lib/axios'
 import { filterOutFalsyItems } from '@/lib/utils'
 import { useAuthContext } from '@/providers/auth'
 import { useRouter } from 'next/router'
 import { useQuery, UseQueryResult } from 'react-query'
 import { IOrder, IOrderProductShort } from './types'
-const axios = getAxios()
 
 interface Response {
   count: number
@@ -26,7 +25,7 @@ export const useOrdersAllQuery: QueryType = () => {
   return useQuery(
     ['orders-all', params, isAuthenticated, user],
     async ({ signal }) => {
-      const { data } = await axios.get('/admin/orders', { params, signal })
+      const { data } = await axiosInstance.get('/admin/orders', { params, signal })
       return data
     },
     {

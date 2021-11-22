@@ -1,3 +1,5 @@
+import { IStatus } from '@/hooks/queries/statuses/types'
+
 export function htmldecode(str?: string): string {
   if (!process.browser) return ''
   var txt = document.createElement('textarea')
@@ -68,8 +70,46 @@ export const formatDateDetail = (dateString: string) => {
 
 export type TPaymetns = 'Наличные' | 'Терминал' | 'Онлайн'
 
-export function convertPaymentTypesToString(type: number): TPaymetns {
-  if (type === 3) return 'Онлайн'
-  else if (type === 2) return 'Терминал'
-  else return 'Наличные'
+export function convertPaymentTypes(type: number): {
+  name: TPaymetns
+  code: 'cash' | 'terminal' | 'online'
+} {
+  if (type === 3) {
+    return {
+      name: 'Онлайн',
+      code: 'online'
+    }
+  } else if (type === 2) {
+    return {
+      code: 'terminal',
+      name: 'Терминал'
+    }
+  } else {
+    return {
+      name: 'Наличные',
+      code: 'cash'
+    }
+  }
+}
+
+export type TMuiColors =
+  | 'error'
+  | 'success'
+  | 'default'
+  | 'warning'
+  | 'primary'
+  | 'secondary'
+  | 'info'
+
+interface IColors {
+  color: TMuiColors
+}
+
+export function getStatusColor(status: IStatus): IColors {
+  if (status.code === 'in_truck') return { color: 'primary' }
+  if (status.code === 'rejected') return { color: 'error' }
+  // if (status.code === '') return { title: 'Завершен', color: 'success' }
+  if (status.code === 'accepted') return { color: 'info' }
+  if (status.code === 'pending') return { color: 'warning' }
+  return { color: 'default' }
 }

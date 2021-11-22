@@ -34,7 +34,7 @@ function MyApp(props: MyAppProps) {
   return (
     <>
       <Head>
-        <title key="head-title">Akat Seller</title>
+        <title key="head-title">Dashboard</title>
         <link rel="icon" href="/favicon.svg" key="favicon" id="favicon" />
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>

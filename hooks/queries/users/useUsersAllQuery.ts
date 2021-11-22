@@ -1,11 +1,9 @@
-import { getAxios } from '@/lib/axios'
+import axiosInstance from '@/lib/axios'
 import { filterOutFalsyItems } from '@/lib/utils'
 import { useAuthContext } from '@/providers/auth'
 import { useRouter } from 'next/router'
 import { useQuery, UseQueryResult } from 'react-query'
 import { IUser } from './types'
-
-const axios = getAxios()
 
 interface Response {
   count: number
@@ -26,7 +24,7 @@ export const useUsersAllQuery: QueryType = () => {
   return useQuery(
     ['users-all', params, isAuthenticated, user],
     async ({ signal }) => {
-      const { data } = await axios.get('/users', { params, signal })
+      const { data } = await axiosInstance.get('/users', { params, signal })
       return data
     },
     {

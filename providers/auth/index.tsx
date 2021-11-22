@@ -39,7 +39,9 @@ const AuthProvider: React.FC = ({ children }) => {
   async function login(values: IGetTokensProps) {
     try {
       setLoading(true)
-      const { accessToken, refreshToken } = await getTokens(values)
+      const data = await getTokens(values)
+      if (!data) throw new Error('auth error')
+      const { accessToken, refreshToken } = data
       if (!isTokenValid(accessToken)) throw new Error('invalid Token')
       setTokens({ refreshToken, accessToken })
       setLoading(false)

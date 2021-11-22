@@ -4,7 +4,7 @@ import { IOrderProductFull } from '@/hooks/queries/orders/types'
 import { useOrdersOneQuery } from '@/hooks/queries/orders/useOrdersOneQuery'
 import { useStatusesAllQuery } from '@/hooks/queries/statuses/useStatusesAllQuery'
 import { getAxios } from '@/lib/axios'
-import { filterOutFalsyItems } from '@/lib/utils'
+import { filterOutFalsyItems, getStatusColor } from '@/lib/utils'
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup'
 import {
   Button,
@@ -56,13 +56,10 @@ const OrderDetailOrderStatus = () => {
       })
     }
   }
-  const { control, handleSubmit, reset } = useForm<typeof defaultValues>({
+  const { control, handleSubmit } = useForm<typeof defaultValues>({
     defaultValues,
     resolver: yupResolver(schema)
   })
-  React.useEffect(() => {
-    // if (isOpen) reset()
-  }, [isOpen, reset])
 
   return (
     <>
@@ -71,6 +68,7 @@ const OrderDetailOrderStatus = () => {
           icon={<MdModeEdit style={{ paddingLeft: 4 }} size={20} />}
           label={data?.statusDetail?.name}
           onClick={openModal}
+          color={getStatusColor(data.statusDetail).color}
         />
       )}
       {/* <Tooltip title="Изменит статус">

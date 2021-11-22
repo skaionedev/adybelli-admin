@@ -8,8 +8,6 @@ export interface IStringTokens {
   refreshToken: string
 }
 
-export type TGetTokens = (props: IGetTokensProps) => Promise<IStringTokens>
-
 export interface IGetTokensProps {
   email: string
   password: string

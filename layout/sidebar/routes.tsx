@@ -1,5 +1,6 @@
 import { FaBox, FaBoxes, FaUsers } from 'react-icons/fa'
 import { MdDashboard } from 'react-icons/md'
+import { ImBoxAdd } from 'react-icons/im'
 
 export const getRoutes = () => {
   function isDisabled(slug: any) {
@@ -25,6 +26,12 @@ export const getRoutes = () => {
       label: 'Торговля',
       children: [
         {
+          title: 'Товары',
+          url: '/products',
+          icon: <FaBox size={20} />,
+          disabled: false
+        },
+        {
           title: 'Заказы',
           url: '/orders',
           icon: <FaBoxes size={20} />,
@@ -33,7 +40,7 @@ export const getRoutes = () => {
         {
           title: 'Контрейнеры',
           url: '/boxes',
-          icon: <FaBox size={20} />,
+          icon: <ImBoxAdd size={20} />,
           disabled: false
         }
       ]
