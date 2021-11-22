@@ -14,8 +14,8 @@ const Login = () => {
   const router = useRouter()
 
   const defaultValues = {
-    email: 'skaione@adybelli.com',
-    password: 'dinebeti2021',
+    email: '',
+    password: '',
     remember: false
   }
 
