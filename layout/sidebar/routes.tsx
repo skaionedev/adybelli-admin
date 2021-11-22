@@ -38,7 +38,7 @@ export const getRoutes = () => {
           disabled: false
         },
         {
-          title: 'Контрейнеры',
+          title: 'Контейнеры',
           url: '/boxes',
           icon: <ImBoxAdd size={20} />,
           disabled: false

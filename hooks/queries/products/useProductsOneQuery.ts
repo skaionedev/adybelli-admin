@@ -3,10 +3,9 @@ import { filterOutFalsyItems } from '@/lib/utils'
 import { useAuthContext } from '@/providers/auth'
 import { useRouter } from 'next/router'
 import { useQuery, UseQueryResult } from 'react-query'
+import { IProductFull } from './types'
 
-interface Response {}
-
-type QueryType = () => UseQueryResult<Response, unknown>
+type QueryType = () => UseQueryResult<IProductFull, unknown>
 
 export const useProductsOneQuery: QueryType = () => {
   const { isAuthenticated } = useAuthContext()
@@ -15,7 +14,7 @@ export const useProductsOneQuery: QueryType = () => {
   const productId = query.id ?? ''
 
   return useQuery(
-    ['orders-all', isAuthenticated, productId],
+    ['product-one', isAuthenticated, productId],
     async () => {
       const { data } = await axiosInstance.get(`/admin/products/${productId}`)
       return data
