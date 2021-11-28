@@ -1,3 +1,4 @@
+import PreviewImage from '@/components/common/preview-image'
 import TablePlaceholder from '@/components/common/table/placeholder'
 import { TableHeaderCell } from '@/components/styled/TableHeaderCell'
 import { useProductsOneQuery } from '@/hooks/queries/products/useProductsOneQuery'
@@ -68,15 +69,17 @@ const ProductDetailCategories = () => {
                   <TableCell>#{cat.cat_id}</TableCell>
                   <TableCell>
                     <Stack direction="row" alignItems="center" spacing={1}>
-                      <ImageWrapper>
-                        <NextImage
-                          unoptimized
-                          objectFit="contain"
-                          height={50}
-                          width={50}
-                          src={resolvePathUrl(cat.img_ru)}
-                        />
-                      </ImageWrapper>
+                      <PreviewImage url={cat.img_ru}>
+                        <ImageWrapper>
+                          <NextImage
+                            unoptimized
+                            objectFit="contain"
+                            height={50}
+                            width={50}
+                            src={resolvePathUrl(cat.img_ru)}
+                          />
+                        </ImageWrapper>
+                      </PreviewImage>
                       <Tooltip title={cat.title_ru}>
                         <StyledTitle>{cat.title_ru}</StyledTitle>
                       </Tooltip>
@@ -84,15 +87,17 @@ const ProductDetailCategories = () => {
                   </TableCell>
                   <TableCell>
                     <Stack direction="row" alignItems="center" spacing={1}>
-                      <ImageWrapper>
-                        <NextImage
-                          unoptimized
-                          objectFit="contain"
-                          height={50}
-                          width={50}
-                          src={resolvePathUrl(cat.img)}
-                        />
-                      </ImageWrapper>
+                      <PreviewImage url={cat.img}>
+                        <ImageWrapper>
+                          <NextImage
+                            unoptimized
+                            objectFit="contain"
+                            height={50}
+                            width={50}
+                            src={resolvePathUrl(cat.img)}
+                          />
+                        </ImageWrapper>
+                      </PreviewImage>
                       <Tooltip title={cat.title}>
                         <StyledTitle>{cat.title}</StyledTitle>
                       </Tooltip>

@@ -9,7 +9,7 @@ import { yupResolver } from '@hookform/resolvers/yup/dist/yup'
 import { Button, Chip, CircularProgress, MenuItem, Stack } from '@mui/material'
 import React from 'react'
 import { useForm } from 'react-hook-form'
-import { FaSave, FaTimes } from 'react-icons/fa'
+import { FaEdit, FaTimes } from 'react-icons/fa'
 import { MdModeEdit } from 'react-icons/md'
 import { toast } from 'react-toastify'
 import { schema } from './schema'
@@ -106,14 +106,14 @@ const OrderDetailProductStatus = ({ product }: Props) => {
             <Button
               disabled={isLoading}
               startIcon={
-                isLoading ? <CircularProgress size=".9em" /> : <FaSave size="18" />
+                isLoading ? <CircularProgress size=".9em" /> : <FaEdit size="18" />
               }
               disableElevation
               type="submit"
               variant="contained"
               color="primary"
             >
-              Создать
+              Изменить
             </Button>
           </Stack>
         </form>

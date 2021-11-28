@@ -16,23 +16,20 @@ const ThemeContext = React.createContext<AppThemeContextType>({
 })
 
 const AppThemeProvider: React.FC = ({ children }) => {
-  const cookies = parseCookies({})
   const isMobile = getResolution() === 'MOBILE'
 
-  let initialThemeMode = cookies[APP_THEME] ? (cookies[APP_THEME] as ThemeType) : 'dark'
-
-  if (process.browser && cookies.APP_THEME) {
-    initialThemeMode = cookies.APP_THEME as ThemeType
-  }
-
-  const [themeMode, setThemeMode] = React.useState<'light' | 'dark'>(initialThemeMode)
+  const [themeMode, setThemeMode] = React.useState<'light' | 'dark'>('dark')
 
   React.useEffect(() => {
+    const cookies = parseCookies({})
+    let initialThemeMode = cookies[APP_THEME] ? (cookies[APP_THEME] as ThemeType) : 'dark'
     setCookie({}, APP_THEME, themeMode, {
       path: '/',
       maxAge: 10 * 365 * 24 * 60 * 60,
       secure: SECURE_COOKIE
     })
+    setThemeMode(initialThemeMode)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const toggleTheme = () => {
@@ -51,6 +48,7 @@ const AppThemeProvider: React.FC = ({ children }) => {
       mode: themeMode,
       toggleTheme
     }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [themeMode]
   )
 

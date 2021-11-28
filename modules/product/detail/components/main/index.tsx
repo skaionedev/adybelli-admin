@@ -10,6 +10,7 @@ import { useProductsOneQuery } from '@/hooks/queries/products/useProductsOneQuer
 import { Divider, Stack } from '@mui/material'
 import NextImage from 'next/image'
 import { ASSETS_URL } from '@/lib/constants'
+import PreviewImage from '@/components/common/preview-image'
 
 const ProductDetailMain = () => {
   const { expanded, handleExpanded } = useProductDetailContext()
@@ -29,7 +30,16 @@ const ProductDetailMain = () => {
         <Typography sx={{ width: '70%', flexShrink: 0 }}> Основная информация</Typography>
       </AccordionSummary>
       <AccordionDetails>
-        <Stack direction="row" spacing={1} sx={{ ml: -1.5 }}>
+        <Stack direction="row" spacing={1}>
+          <PreviewImage url={data.productImages[0].small}>
+            <NextImage
+              unoptimized
+              objectFit="contain"
+              height={240}
+              width={240}
+              src={`${ASSETS_URL}${data.productImages[0].small}`}
+            />
+          </PreviewImage>
           <ListTile label="Название" value={data?.name} />
           <ListTile label="Название (RU)" value={data?.name_ru} />
           <ListTile label="В наличии" value={data?.in_stock ? 'да' : 'нет'} />
@@ -44,13 +54,15 @@ const ProductDetailMain = () => {
         </Stack>
         <Divider sx={{ my: 1.5 }} />
         <Stack direction="row" spacing={1}>
-          <NextImage
-            unoptimized
-            objectFit="contain"
-            height={240}
-            width={240}
-            src={`${ASSETS_URL}${data.trademark.logo}`}
-          />
+          <PreviewImage url={data.trademark.logo || ''}>
+            <NextImage
+              unoptimized
+              objectFit="contain"
+              height={240}
+              width={240}
+              src={`${ASSETS_URL}${data.trademark.logo}`}
+            />
+          </PreviewImage>
           <ListTile label="Ид брендa" value={data?.trademark.tm_id} />
           <ListTile label="Бренд" value={data?.trademark.title} />
           <ListTile label="Бренд (ТR)" value={data?.trademark.title_tr} />

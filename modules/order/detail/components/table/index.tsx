@@ -26,6 +26,7 @@ import { ASSETS_URL } from '@/lib/constants'
 import { BiLinkExternal } from 'react-icons/bi'
 import { AiOutlineLink } from 'react-icons/ai'
 import OrderDetailProductInfo from '../product-info'
+import PreviewImage from '@/components/common/preview-image'
 
 const OrderDetailTable = () => {
   const { data, status, isFetched, isFetching } = useOrdersOneQuery()
@@ -68,15 +69,17 @@ const OrderDetailTable = () => {
                 <TableCell>{row.od_id}</TableCell>
                 <TableCell align="left">
                   <Stack direction="row" alignItems="center" spacing={1}>
-                    <ImageWrapper>
-                      <NextImage
-                        unoptimized
-                        objectFit="contain"
-                        height={50}
-                        width={50}
-                        src={resolvePathUrl(row)}
-                      />
-                    </ImageWrapper>
+                    <PreviewImage url={row.image}>
+                      <ImageWrapper>
+                        <NextImage
+                          unoptimized
+                          objectFit="contain"
+                          height={50}
+                          width={50}
+                          src={resolvePathUrl(row)}
+                        />
+                      </ImageWrapper>
+                    </PreviewImage>
                     <Tooltip title={row.name_ru}>
                       <StyledTitle>{row.name_ru}</StyledTitle>
                     </Tooltip>

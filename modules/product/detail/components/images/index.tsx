@@ -17,6 +17,7 @@ import Typography from '@mui/material/Typography'
 import * as React from 'react'
 import { useProductDetailContext } from '../../provider'
 import NextImage from 'next/image'
+import PreviewImage from '@/components/common/preview-image'
 
 const ProductDetailImages = () => {
   const { expanded, handleExpanded } = useProductDetailContext()
@@ -59,38 +60,43 @@ const ProductDetailImages = () => {
                   <TableCell>#{image.img_id}</TableCell>
                   <TableCell>{image.is_main ? 'Да' : 'Нет'}</TableCell>
                   <TableCell>
-                    <NextImage
-                      unoptimized
-                      objectFit="contain"
-                      height={60}
-                      width={60}
-                      src={`${ASSETS_URL}${image.small}`}
-                    />
+                    <PreviewImage url={image.small}>
+                      <NextImage
+                        unoptimized
+                        objectFit="contain"
+                        height={60}
+                        width={60}
+                        src={`${ASSETS_URL}${image.small}`}
+                      />
+                    </PreviewImage>
                   </TableCell>
                   <TableCell>
-                    <NextImage
-                      unoptimized
-                      objectFit="contain"
-                      height={60}
-                      width={60}
-                      src={`${ASSETS_URL}${image.medium}`}
-                    />
+                    <PreviewImage url={image.medium}>
+                      <NextImage
+                        unoptimized
+                        objectFit="contain"
+                        height={60}
+                        width={60}
+                        src={`${ASSETS_URL}${image.medium}`}
+                      />
+                    </PreviewImage>
                   </TableCell>
                   <TableCell>
-                    <NextImage
-                      unoptimized
-                      objectFit="contain"
-                      height={60}
-                      width={60}
-                      src={`${ASSETS_URL}${image.large}`}
-                    />
+                    <PreviewImage url={image.large}>
+                      <NextImage
+                        unoptimized
+                        objectFit="contain"
+                        height={60}
+                        width={60}
+                        src={`${ASSETS_URL}${image.large}`}
+                      />
+                    </PreviewImage>
                   </TableCell>
                 </TableRow>
               ))}
           </TableBody>
         </Table>
       </TableContainer>
-      {/* <AccordionDetails>выфв</AccordionDetails> */}
     </Accordion>
   )
 }

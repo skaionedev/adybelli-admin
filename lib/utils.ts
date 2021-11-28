@@ -106,10 +106,10 @@ interface IColors {
 }
 
 export function getStatusColor(status: IStatus): IColors {
-  if (status.code === 'in_truck') return { color: 'primary' }
-  if (status.code === 'rejected') return { color: 'error' }
+  if (status?.code === 'in_truck') return { color: 'primary' }
+  if (status?.code === 'rejected') return { color: 'error' }
   // if (status.code === '') return { title: 'Завершен', color: 'success' }
-  if (status.code === 'accepted') return { color: 'info' }
-  if (status.code === 'pending') return { color: 'warning' }
+  if (status?.code === 'accepted') return { color: 'info' }
+  if (status?.code === 'pending') return { color: 'warning' }
   return { color: 'default' }
 }

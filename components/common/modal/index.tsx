@@ -1,4 +1,10 @@
-import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle
+} from '@mui/material'
 import React from 'react'
 
 interface Props {
@@ -33,7 +39,7 @@ const AppModal: React.FC<Props> = ({
       open={open}
       onClose={handleClose}
     >
-      <DialogTitle>{title}</DialogTitle>
+      {title && <DialogTitle>{title}</DialogTitle>}
       <DialogContent>
         <DialogContentText component={'div'}>{children}</DialogContentText>
       </DialogContent>

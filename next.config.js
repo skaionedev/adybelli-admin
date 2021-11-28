@@ -14,7 +14,9 @@ const nextConfig = {
   // swcMinify: true,
   compress: false,
   images: {
-    domains: isDev ? ['192.168.30.210', '192.168.50.106', ''] : ['']
+    domains: isDev
+      ? ['192.168.30.210', '192.168.50.106', 'cdn.adybelli.com']
+      : ['cdn.adybelli.com']
   }
 }
 
