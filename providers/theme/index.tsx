@@ -18,12 +18,12 @@ const ThemeContext = React.createContext<AppThemeContextType>({
 const AppThemeProvider: React.FC = ({ children }) => {
   const isMobile = getResolution() === 'MOBILE'
 
-  const [themeMode, setThemeMode] = React.useState<'light' | 'dark'>('dark')
+  const [themeMode, setThemeMode] = React.useState<ThemeType>('dark')
 
   React.useEffect(() => {
     const cookies = parseCookies({})
     let initialThemeMode = cookies[APP_THEME] ? (cookies[APP_THEME] as ThemeType) : 'dark'
-    setCookie({}, APP_THEME, themeMode, {
+    setCookie({}, APP_THEME, initialThemeMode, {
       path: '/',
       maxAge: 10 * 365 * 24 * 60 * 60,
       secure: SECURE_COOKIE
