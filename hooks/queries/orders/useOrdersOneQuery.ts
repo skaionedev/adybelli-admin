@@ -1,4 +1,4 @@
-import axiosInstance from '@/lib/axios'
+import api from '@/lib/axios'
 import { filterOutFalsyItems } from '@/lib/utils'
 import { useAuthContext } from '@/providers/auth'
 import { useRouter } from 'next/router'
@@ -20,7 +20,7 @@ export const useOrdersOneQuery: QueryType = () => {
   return useQuery(
     ['orders-all', isAuthenticated, orderId],
     async () => {
-      const { data } = await axiosInstance.get(`/admin/orders/${orderId}`)
+      const { data } = await api.get(`/admin/orders/${orderId}`)
       console.log({ SingleOrder: data })
 
       return data

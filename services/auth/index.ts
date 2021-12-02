@@ -1,4 +1,4 @@
-import axiosInstance from '@/lib/axios'
+import api from '@/lib/axios'
 import jwtDecode from 'jwt-decode'
 import { destroyCookie, parseCookies, setCookie } from 'nookies'
 import {
@@ -18,7 +18,7 @@ import type {
 export const getTokens = async (props: IGetTokensProps) => {
   const { email, password, remember } = props
 
-  const { data } = await axiosInstance.post<IStringTokens>(`/auth/login`, {
+  const { data } = await api.post<IStringTokens>(`/auth/login`, {
     email,
     password
   })

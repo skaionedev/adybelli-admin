@@ -5,7 +5,7 @@ import { API_URL, ACCESS_TOKEN, REFRESH_TOKEN } from './constants'
 import Router from 'next/router'
 import { IStringTokens } from '@/services/auth/types'
 
-const axiosInstance = axios.create({
+const api = axios.create({
   baseURL: API_URL,
   headers: {
     'Content-Type': 'application/json',
@@ -16,7 +16,7 @@ const axiosInstance = axios.create({
 let isRefreshing = false
 let requests: any[] = []
 
-axiosInstance.interceptors.response.use(
+api.interceptors.response.use(
   response => {
     return response
   },
@@ -38,17 +38,17 @@ axiosInstance.interceptors.response.use(
               refreshToken: data.refreshToken
             })
             // @ts-ignore: Unreachable code error
-            axiosInstance.defaults.headers['Authorization'] = `Bearer ${data.accessToken}`
+            api.defaults.headers['Authorization'] = `Bearer ${data.accessToken}`
             config.headers['Authorization'] = `Bearer ${data.accessToken}`
             requests.forEach(cb => cb(data.accessToken))
             requests = []
-            return axiosInstance(config)
+            return api(config)
           })
           .catch(() => {
             requests = []
             clearTokens()
             // @ts-ignore: Unreachable code error
-            axiosInstance.defaults.headers['Authorization'] = ''
+            api.defaults.headers['Authorization'] = ''
             if (typeof window !== 'undefined') {
               Router.replace('/login')
             }
@@ -60,7 +60,7 @@ axiosInstance.interceptors.response.use(
         return new Promise(resolve => {
           requests.push((token: string) => {
             config.headers['Authorization'] = `Bearer ${token}`
-            resolve(axiosInstance(config))
+            resolve(api(config))
           })
         })
       }
@@ -70,7 +70,7 @@ axiosInstance.interceptors.response.use(
   }
 )
 
-export default axiosInstance
+export default api
 
 function refreshToken() {
   const refreshToken = getTokens()[REFRESH_TOKEN]

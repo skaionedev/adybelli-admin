@@ -3,7 +3,7 @@ import FormSelect from '@/components/form/select'
 import { IOrderProductFull } from '@/hooks/queries/orders/types'
 import { useOrdersOneQuery } from '@/hooks/queries/orders/useOrdersOneQuery'
 import { useStatusesAllQuery } from '@/hooks/queries/statuses/useStatusesAllQuery'
-import axiosInstance from '@/lib/axios'
+import api from '@/lib/axios'
 import { filterOutFalsyItems, getStatusColor } from '@/lib/utils'
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup'
 import { Button, Chip, CircularProgress, MenuItem, Stack } from '@mui/material'
@@ -35,7 +35,7 @@ const OrderDetailProductStatus = ({ product }: Props) => {
       setIsLoading(true)
       const dataToServer = filterOutFalsyItems(values)
 
-      await axiosInstance.patch(`/admin/order-details/${product.od_id}`, dataToServer)
+      await api.patch(`/admin/order-details/${product.od_id}`, dataToServer)
       await refetch()
       setIsLoading(false)
       setIsOpen(false)

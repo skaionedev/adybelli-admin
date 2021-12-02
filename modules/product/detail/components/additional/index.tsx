@@ -13,6 +13,7 @@ const ProductDetailAdditional = () => {
   const { expanded, handleExpanded } = useProductDetailContext()
   const { data } = useProductsOneQuery()
 
+  const blank = '-------------'
   const expandedKey = 'product-additional'
   if (!data) return null
 
@@ -47,10 +48,19 @@ const ProductDetailAdditional = () => {
         </Stack>
         <Divider sx={{ my: 1.5 }} />
         <Stack direction="row" spacing={1} sx={{ ml: -1.5 }}>
-          <ListTile label="cd_id" value={data?.productDetails[0].cd_id} />
-          <ListTile label="Стоимость" value={data?.productDetails[0].cost_price} />
-          <ListTile label="cross_item" value={data?.productDetails[0].cross_item} />
-          <ListTile label="Кол-во заказов" value={data?.productDetails[0].order_count} />
+          <ListTile label="cd_id" value={data?.productDetails[0].cd_id ?? blank} />
+          <ListTile
+            label="Стоимость"
+            value={data?.productDetails[0].cost_price ?? blank}
+          />
+          <ListTile
+            label="cross_item"
+            value={data?.productDetails[0].cross_item ?? blank}
+          />
+          <ListTile
+            label="Кол-во заказов"
+            value={data?.productDetails[0].order_count ?? blank}
+          />
 
           <ListTile
             label="Просмотры"

@@ -1,4 +1,4 @@
-import axiosInstance from '@/lib/axios'
+import api from '@/lib/axios'
 import { filterOutFalsyItems } from '@/lib/utils'
 import { useAuthContext } from '@/providers/auth'
 import { useRouter } from 'next/router'
@@ -16,7 +16,7 @@ export const useProductsOneQuery: QueryType = () => {
   return useQuery(
     ['product-one', isAuthenticated, productId],
     async () => {
-      const { data } = await axiosInstance.get(`/admin/products/${productId}`)
+      const { data } = await api.get(`/admin/products/${productId}`)
       return data
     },
     {

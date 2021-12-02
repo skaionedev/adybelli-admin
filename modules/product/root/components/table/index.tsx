@@ -37,7 +37,8 @@ const ProductRootTable = () => {
             <TableHeaderCell align="left">Ид</TableHeaderCell>
             <TableHeaderCell align="left">Наименование</TableHeaderCell>
             <TableHeaderCell align="left">Цена </TableHeaderCell>
-            <TableHeaderCell align="left">Цена продажная</TableHeaderCell>
+            <TableHeaderCell align="left">Цена </TableHeaderCell>
+            <TableHeaderCell align="left">Цена</TableHeaderCell>
             <TableHeaderCell align="left">В наличии</TableHeaderCell>
             <TableHeaderCell align="left">Пол </TableHeaderCell>
             <TableHeaderCell align="left">Бренд</TableHeaderCell>
@@ -75,8 +76,9 @@ const ProductRootTable = () => {
                     </Tooltip>
                   </Stack>
                 </TableCell>
-                <TableCell>{row.price || blank}</TableCell>
-                <TableCell>{row.sale_price}</TableCell>
+                <TableCell>$ {row?.price_usd?.toFixed(2)} </TableCell>
+                <TableCell>TL {row?.price_lira?.toFixed(2)} </TableCell>
+                <TableCell> {row.sale_price.toFixed(2)}</TableCell>
                 <TableCell>{row.on_sale ? 'Да' : 'Нет'}</TableCell>
                 <TableCell>{row.gender || blank}</TableCell>
                 <TableCell>{row.trademark.title}</TableCell>

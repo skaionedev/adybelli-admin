@@ -3,7 +3,7 @@ import { styled } from '@mui/material/styles'
 
 export const StyledPaper = styled(Paper)`
   display: flex;
-  height: 100vh;
+  min-height: 100vh;
   width: 100%;
   color: ${props => props.theme.palette.primary.main};
   background-color: ${({ theme }) => theme.palette.background.default};
@@ -11,7 +11,8 @@ export const StyledPaper = styled(Paper)`
 
 export const StyledBox = styled('div')`
   width: 100%;
-  height: 100%;
+  min-height: 100%;
+  max-height: 100vh;
   background-color: ${({ theme }) => theme.palette.background.default};
   ${({ theme }) => theme.breakpoints.up('xs')} {
     padding: 74px 8px 8px 8px;

@@ -49,8 +49,9 @@ const ProductDetailMain = () => {
           <ListTile label="Слаг" value={data?.slug} />
           {data?.gender && <ListTile label="Пол" value={data?.gender} />}
           <ListTile label="В продаже" value={data?.on_sale ? 'да' : 'нет'} />
-          <ListTile label="Цена" value={data?.price ? data?.price : '-----'} />
-          <ListTile label="Продажная цена" value={data?.sale_price} />
+          <ListTile label="Цена" value={`TL ${data?.price_lira?.toFixed(2)}`} />
+          <ListTile label="Цена" value={`$ ${data?.price_usd?.toFixed(2)}`} />
+          <ListTile label="Цена" value={`${data?.sale_price?.toFixed(2)}`} />
         </Stack>
         <Divider sx={{ my: 1.5 }} />
         <Stack direction="row" spacing={1}>

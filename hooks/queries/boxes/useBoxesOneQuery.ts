@@ -1,4 +1,4 @@
-import axiosInstance from '@/lib/axios'
+import api from '@/lib/axios'
 import { useAuthContext } from '@/providers/auth'
 import { useRouter } from 'next/router'
 import { useQuery, UseQueryResult } from 'react-query'
@@ -19,7 +19,7 @@ export const useBoxesOneQuery: QueryType = () => {
   return useQuery(
     ['boxes-one', isAuthenticated, boxId],
     async () => {
-      const { data } = await axiosInstance.get(`/admin/boxes/${boxId}`)
+      const { data } = await api.get(`/admin/boxes/${boxId}`)
       console.log({ data })
 
       return data

@@ -1,17 +1,15 @@
-import * as React from 'react'
-import Head from 'next/head'
-import { AppProps } from 'next/app'
-
-import { CacheProvider, EmotionCache } from '@emotion/react'
-
-import createEmotionCache from '../lib/createEmotionCache'
-import AppThemeProvider from '../providers/theme'
-import AuthProvider from '../providers/auth'
-import { QueryClient, QueryClientProvider } from 'react-query'
-import { Hydrate } from 'react-query/hydration'
 import AppLayout from '@/layout'
 import '@/public/global.css'
 import '@/public/toastify.css'
+import { CacheProvider, EmotionCache } from '@emotion/react'
+import { AppProps } from 'next/app'
+import Head from 'next/head'
+import * as React from 'react'
+import { QueryClient, QueryClientProvider } from 'react-query'
+import { Hydrate } from 'react-query/hydration'
+import createEmotionCache from '../lib/createEmotionCache'
+import AuthProvider from '../providers/auth'
+import AppThemeProvider from '../providers/theme'
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()

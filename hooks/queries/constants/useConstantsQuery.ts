@@ -1,17 +1,17 @@
 import api from '@/lib/axios'
 import { useAuthContext } from '@/providers/auth'
 import { useQuery, UseQueryResult } from 'react-query'
-import { IStatus } from './types'
+import { IConstant } from './types'
 
-type QueryType = () => UseQueryResult<IStatus[], unknown>
+type QueryType = () => UseQueryResult<IConstant[], unknown>
 
-export const useStatusesAllQuery: QueryType = () => {
+export const useConstantsQuery: QueryType = () => {
   const { isAuthenticated } = useAuthContext()
 
   return useQuery(
-    ['statuses-all', isAuthenticated],
+    ['constants', isAuthenticated],
     async () => {
-      const { data } = await api.get(`/statuses`)
+      const { data } = await api.get(`/constants`)
       return data
     },
     {

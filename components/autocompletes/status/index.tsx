@@ -29,6 +29,7 @@ const FilterByStatus = (props: { width?: number | string }) => {
       const path = { pathname: router.pathname, query: filterOutFalsyItems(query) }
       router.replace(path, undefined, { shallow: true })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value, isDirtyRef.current])
 
   React.useEffect(() => {

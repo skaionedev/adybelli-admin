@@ -1,4 +1,4 @@
-import axiosInstance from '@/lib/axios'
+import api from '@/lib/axios'
 import { filterOutFalsyItems } from '@/lib/utils'
 import { useAuthContext } from '@/providers/auth'
 import { useRouter } from 'next/router'
@@ -24,7 +24,7 @@ export const useUsersAllQuery: QueryType = () => {
   return useQuery(
     ['users-all', params, isAuthenticated, user],
     async ({ signal }) => {
-      const { data } = await axiosInstance.get('/users', { params, signal })
+      const { data } = await api.get('/users', { params, signal })
       return data
     },
     {

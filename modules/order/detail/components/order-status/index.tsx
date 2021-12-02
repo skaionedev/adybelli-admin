@@ -3,7 +3,7 @@ import FormSelect from '@/components/form/select'
 import { IOrderProductFull } from '@/hooks/queries/orders/types'
 import { useOrdersOneQuery } from '@/hooks/queries/orders/useOrdersOneQuery'
 import { useStatusesAllQuery } from '@/hooks/queries/statuses/useStatusesAllQuery'
-import axiosInstance from '@/lib/axios'
+import api from '@/lib/axios'
 import { filterOutFalsyItems, getStatusColor } from '@/lib/utils'
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup'
 import {
@@ -39,7 +39,7 @@ const OrderDetailOrderStatus = () => {
       setIsLoading(true)
       const dataToServer = filterOutFalsyItems(values)
 
-      await axiosInstance.patch(`/admin/orders/${data?.order_id}`, dataToServer)
+      await api.patch(`/admin/orders/${data?.order_id}`, dataToServer)
       await refetch()
       setIsLoading(false)
       setIsOpen(false)

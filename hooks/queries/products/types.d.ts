@@ -10,6 +10,8 @@ export interface IProduct {
   price?: string
   prod_id: string
   sale_price: number
+  price_usd: number
+  price_lira: number
   slug: string
   tm_id: number
   trademark: ITrademak

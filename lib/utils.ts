@@ -1,3 +1,4 @@
+import { TConstantKey } from '@/hooks/queries/constants/types'
 import { IStatus } from '@/hooks/queries/statuses/types'
 
 export function htmldecode(str?: string): string {
@@ -112,4 +113,24 @@ export function getStatusColor(status: IStatus): IColors {
   if (status?.code === 'accepted') return { color: 'info' }
   if (status?.code === 'pending') return { color: 'warning' }
   return { color: 'default' }
+}
+
+export function getConstantsName(key: TConstantKey): string {
+  switch (key) {
+    case 'delivery_day':
+      return 'Время доставки'
+    case 'inc_percent':
+      return '% добавочный'
+    case 'product_percent':
+      return '% товара'
+    case 'usd_lira':
+      return '1$ -> TL'
+    case 'usd_manat':
+      return '1$ -> TMT'
+    case 'usd_price':
+      return 'USD'
+
+    default:
+      return ''
+  }
 }

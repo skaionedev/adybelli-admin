@@ -1,4 +1,4 @@
-import axiosInstance from '@/lib/axios'
+import api from '@/lib/axios'
 import { filterOutFalsyItems } from '@/lib/utils'
 import { useAuthContext } from '@/providers/auth'
 import { useRouter } from 'next/router'
@@ -24,7 +24,7 @@ export const useBoxesAllQuery: QueryType = () => {
   return useQuery(
     ['boxes-all', params, isAuthenticated, user],
     async ({ signal }) => {
-      const { data } = await axiosInstance.get('/admin/boxes', { params, signal })
+      const { data } = await api.get('/admin/boxes', { params, signal })
       return data
     },
     {

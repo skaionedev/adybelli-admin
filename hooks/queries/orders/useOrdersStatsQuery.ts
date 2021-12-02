@@ -1,4 +1,4 @@
-import axiosInstance from '@/lib/axios'
+import api from '@/lib/axios'
 import { useAuthContext } from '@/providers/auth'
 import { useQuery, UseQueryResult } from 'react-query'
 import { TOrderStats } from './types'
@@ -11,7 +11,7 @@ export const useOrdersStatsQuery: QueryType = () => {
   return useQuery(
     ['orders-stats', isAuthenticated, user],
     async ({ signal }) => {
-      const { data } = await axiosInstance.get('/admin/orders/statistics', { signal })
+      const { data } = await api.get('/admin/orders/statistics', { signal })
       let resp = { ...data }
 
       data.statuses.map((stat: any) => {

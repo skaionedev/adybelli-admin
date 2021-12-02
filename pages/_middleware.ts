@@ -7,9 +7,9 @@ export async function middleware(req: NextRequest) {
   if (req.ua?.isBot) return null
   if (!req.page.name) return res
 
-  const authRes = await authMiddleware({ req, res })
+  // const authRes = await authMiddleware({ req, res })
 
-  if (authRes) return authRes
+  // if (authRes) return authRes
 
   return res
 }
