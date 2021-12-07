@@ -1,10 +1,9 @@
 import TablePlaceholder from '@/components/common/table/placeholder'
 import { TableHeaderCell } from '@/components/styled/TableHeaderCell'
-import { useOrdersAllQuery } from '@/hooks/queries/orders/useOrdersAllQuery'
+import { IProduct } from '@/hooks/queries/products/types'
 import { useProductsAllQuery } from '@/hooks/queries/products/useProductsAllQuery'
-import { convertPaymentTypes, formatDateDetail, getStatusColor } from '@/lib/utils'
+import { ASSETS_URL } from '@/lib/constants'
 import {
-  Chip,
   Stack,
   Table,
   TableBody,
@@ -14,19 +13,18 @@ import {
   TableRow,
   Tooltip
 } from '@mui/material'
+import NextImage from 'next/image'
 import { useRouter } from 'next/router'
 import React from 'react'
-import { ImageWrapper, StyledLink, StyledTitle } from './styles'
-import NextImage from 'next/image'
-import { IProduct } from '@/hooks/queries/products/types'
-import { ASSETS_URL } from '@/lib/constants'
+import { ImageWrapper, StyledTitle } from './styles'
 
 const ProductRootTable = () => {
   const { data, status, isFetched, isFetching } = useProductsAllQuery()
   const router = useRouter()
 
   function resolvePathUrl(row: IProduct) {
-    return `${ASSETS_URL}${row.image}`
+    if (!row?.image) return ''
+    return `${ASSETS_URL}${row?.image}`
   }
   const blank = '-------------'
   return (

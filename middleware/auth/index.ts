@@ -1,7 +1,6 @@
 import { ACCESS_TOKEN, REFRESH_TOKEN, REMEMBER_ME } from '@/lib/constants'
 import { decodeToken, isTokenExpired } from '@/services/auth'
 import { IRefreshToken } from '@/services/auth/types'
-import { NextURL } from 'next/dist/server/web/next-url'
 import type { NextRequest } from 'next/server'
 import { NextResponse } from 'next/server'
 
@@ -12,9 +11,10 @@ interface Props {
 
 export async function authMiddleware({ req, res }: Props) {
   const refreshTokenString = req.cookies[REFRESH_TOKEN]
+  const isLoginPage = req.url.includes('/login')
 
-  // NO TOKEN IN COOKIE AND ROUTE IS NOT EQAUL LOGIN
-  if (!refreshTokenString && req.url !== '/login') {
+  // // NO TOKEN IN COOKIE AND ROUTE IS NOT EQAUL LOGIN
+  if (!refreshTokenString && !isLoginPage) {
     clearCookies(res)
     return NextResponse.redirect('/login')
   }
@@ -23,13 +23,13 @@ export async function authMiddleware({ req, res }: Props) {
 
   const isRefreshTokenExp = refreshToken ? isTokenExpired(refreshToken) : true
 
-  // RESTRICT ACCESS TO LOGIN PAGE FOR AUTHENTICATED USERS
-  if (req.url === '/login' && !isRefreshTokenExp) {
+  // // RESTRICT ACCESS TO LOGIN PAGE FOR AUTHENTICATED USERS
+  if (isLoginPage && !isRefreshTokenExp) {
     return NextResponse.redirect('/users')
   }
 
-  // REDIRECT TO LOGIN PAGE IF TOKEN IS EXPIRED
-  if (req.url !== '/login' && isRefreshTokenExp) {
+  // // REDIRECT TO LOGIN PAGE IF TOKEN IS EXPIRED
+  if (!isLoginPage && isRefreshTokenExp) {
     clearCookies(res)
     return NextResponse.redirect('/login')
   }

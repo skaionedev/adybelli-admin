@@ -44,12 +44,13 @@ const AuthProvider: React.FC = ({ children }) => {
       const { accessToken, refreshToken } = data
       if (!isTokenValid(accessToken)) throw new Error('invalid Token')
       setTokens({ refreshToken, accessToken })
+      setUser(initUser)
+      setIsAuthenticated(true)
       setLoading(false)
-      window.location.href = '/'
-      // setUser(initUser)
-      // setIsAuthenticated(true)
-
-      // Router.replace('/')
+      const tId = setTimeout(() => {
+        router.replace('/')
+        clearTimeout(tId)
+      }, 100)
     } catch (error: any) {
       setLoading(false)
       toast.error('Что-то пошло не так', {
